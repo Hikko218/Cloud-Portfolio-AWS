@@ -3,7 +3,7 @@
 ## 🎯 Goal
 Build a secure AWS Virtual Private Cloud (VPC) with:
 - Public and private subnets
-- Bastion host for secure access
+- AWS Systems Manager Session Manager for secure access
 - Comparison of Security Groups vs. NACLs
 
 ---
@@ -15,16 +15,17 @@ Build a secure AWS Virtual Private Cloud (VPC) with:
 
 ## ⚙️ Services Used
 - VPC (CIDR: 10.0.0.0/16)
-- 2 Public Subnets (ALB, Bastion Host)
+- 2 Public Subnets (ALB, NAT Gateway)
 - 2 Private Subnets (DB, ECS)
 - Internet Gateway + NAT Gateway
+- AWS Systems Manager (SSM) Session Manager
 
 ---
 
 ## 🔒 Security
 - Security Groups (stateful) → fine-grained instance control
 - Network ACLs (stateless) → subnet-level rules
-- Bastion Host as the only SSH entry point
+- Session Manager as the only secure entry point into private subnets
 
 ---
 
@@ -36,5 +37,9 @@ Build a secure AWS Virtual Private Cloud (VPC) with:
 
 ## 💰 Cost Estimation
 - NAT Gateway: ~$32/month (can be disabled in demo)
-- EC2 Bastion Host: ~$8/month (t2.micro)
 - Flow Logs: a few cents
+
+---
+
+✅ With this setup, you demonstrate **secure network design**, proper use of **public vs. private subnets**, and **modern secure access** with AWS Systems Manager Session Manager.
+

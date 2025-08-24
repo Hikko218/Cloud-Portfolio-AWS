@@ -1,7 +1,6 @@
-```markdown
-# Step-by-Step Guide: Secure VPC Architecture on AWS
+# Step-by-Step Guide: Secure VPC Architecture on AWS (with Session Manager)
 
-This document provides a step-by-step guide to design and implement a secure Virtual Private Cloud (VPC) on AWS with **public and private subnets, a bastion host, NAT gateway, and monitoring**.
+This document provides a step-by-step guide to design and implement a secure Virtual Private Cloud (VPC) on AWS with **public and private subnets, NAT gateway, and secure access via AWS Systems Manager Session Manager**.
 
 ---
 
@@ -24,59 +23,61 @@ This document provides a step-by-step guide to design and implement a secure Vir
 
 ---
 
-## **3. Bastion Host (Jump Box)**
-1. Go to **EC2 Console** → Launch Instance.
-2. Name: `bastion-host`.
-3. Instance Type: `t2.micro` (Free Tier).
-4. Network: `secure-vpc`, select Public Subnet.
-5. Security Group: allow **SSH (22) only from your IP**.
-6. Assign Elastic IP for stable access.
+## **3. Secure Access with Session Manager**
 
-📸 Screenshot: *EC2 Bastion Host Details*
+1. Ensure **SSM Agent** is installed (pre-installed on Amazon Linux 2, ECS instances, most AMIs).
+2. Attach an **IAM Role** to private resources (e.g., ECS/EC2 instances):
+   - Policy: `AmazonSSMManagedInstanceCore`
+3. Go to **Systems Manager Console** → Session Manager.
+4. Start a session directly from the AWS Console or via CLI:
+   ```bash
+   aws ssm start-session --target <instance-id>
 
----
+	5.	Configure Session Logging → CloudWatch Logs or S3.
 
-## **4. Private Resources (Example: RDS & ECS)**
-1. Launch RDS instance in **Private Subnet** (set Public Access = No).
-2. ECS tasks or EC2 instances run inside **Private Subnet**.
-3. Access them via **Bastion Host**.
+📸 Screenshot: Session Manager starting a session without public IP
 
-📸 Screenshot: *RDS showing Private Subnet + No Public Access*
+⸻
 
----
+## **4. Private Resources (Example: RDS & ECS)
+	1.	Launch RDS instance in Private Subnet (set Public Access = No).
+	2.	ECS tasks run inside Private Subnet.
+	3.	Use SSM Session Manager to securely connect to private resources for troubleshooting.
 
-## **5. Security Groups vs. NACLs**
-- **Security Groups (SGs)**: instance-level, stateful.
-  - Example: RDS SG allows access only from ECS SG.
-- **Network ACLs (NACLs)**: subnet-level, stateless.
-  - Example: Block all traffic except required ports (80, 443, 22).
+📸 Screenshot: RDS showing Private Subnet + No Public Access
 
-📸 Screenshot: *Security Group Rules vs. NACL Rules Table*
+⸻
 
----
+## **5. Security Groups vs. NACLs
+	•	Security Groups (SGs): instance-level, stateful.
+	•	Example: RDS SG allows access only from ECS SG.
+	•	Network ACLs (NACLs): subnet-level, stateless.
+	•	Example: Block all traffic except required ports (80, 443).
 
-## **6. Monitoring**
-1. Enable **VPC Flow Logs**.
-   - Destination: CloudWatch Logs.
-   - Log Group: `secure-vpc-logs`.
-2. Create **CloudWatch Alarm**:
-   - Metric: unusual inbound SSH attempts.
-   - Action: Send SNS notification.
+📸 Screenshot: Security Group Rules vs. NACL Rules Table
 
-📸 Screenshot: *CloudWatch Flow Logs with IP traffic details*
+⸻
 
----
+## **6. Monitoring
+	1.	Enable VPC Flow Logs.
+	•	Destination: CloudWatch Logs.
+	•	Log Group: secure-vpc-logs.
+	2.	Create CloudWatch Alarm:
+	•	Metric: unusual inbound attempts.
+	•	Action: Send SNS notification.
 
-## **7. Cost Estimation & Cleanup**
-- NAT Gateway: ~$32/month (disable when not needed).
-- Bastion Host (EC2 t2.micro): ~$8/month.
-- Flow Logs: a few cents.
-- Cleanup: terminate Bastion, delete NAT Gateway, VPC resources.
+📸 Screenshot: CloudWatch Flow Logs with IP traffic details
 
-📸 Screenshot: *AWS Billing Console (showing NAT Gateway + EC2 costs)*
+⸻
 
----
+## **7. Cost Estimation & Cleanup
+	•	NAT Gateway: ~$32/month (disable when not needed).
+	•	Flow Logs: a few cents.
+	•	Cleanup: delete NAT Gateway, VPC resources.
 
-✅ With this setup, you demonstrate **secure network design**, proper use of **public vs. private subnets**, and **security best practices** with AWS.
-```
+📸 Screenshot: AWS Billing Console (showing NAT Gateway costs)
+
+⸻
+
+✅ With this setup, you demonstrate secure network design, proper use of public vs. private subnets, and modern secure access with AWS Systems Manager Session Manager.
 
