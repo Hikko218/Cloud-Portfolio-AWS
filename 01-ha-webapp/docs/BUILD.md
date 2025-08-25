@@ -40,7 +40,7 @@
 
 ---
 
-## Step 4 – ECS Fargate (Compute Layer)
+## ⚙️ Step 4 – ECS Fargate (Compute Layer)
 
 ECS Cluster with Fargate Tasks running `nginx:latest` across **2 Availability Zones**.
 
@@ -62,6 +62,7 @@ ECS Cluster with Fargate Tasks running `nginx:latest` across **2 Availability Zo
 </div>
 
 ---
+
 
 
 
