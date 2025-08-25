@@ -2,7 +2,6 @@
 
 This repository showcases my cloud engineering projects, focused on **AWS Infrastructure, Security, and Monitoring**.  
 Each project demonstrates one of the core pillars of cloud infrastructure: **Compute, Networking, Storage, and Security**.  
-I intentionally left out web development and CI/CD pipelines to highlight my focus on **cloud infrastructure engineering**.  
 
 ---
 
@@ -46,15 +45,17 @@ A secure storage and monitoring setup with AWS services:
 > Focus: Storage, Monitoring, Security, Cost Optimization.
 
 ### 4. [Infrastructure as Code with Terraform](./04-iac-terraform)
-Focus: Infrastructure as Code (IaC), automation, reproducibility.
+
 - Terraform scripts to deploy VPC, ECS Fargate, RDS, S3, ALB, CloudWatch.
 - Demonstrates automation of the complete architecture from Projects 1–3.
 - Commands: `terraform init`, `terraform plan`, `terraform apply`, `terraform destroy`.
+
+> Focus: Infrastructure as Code (IaC), automation, reproducibility.
 
 ---
 
 ## 🎯 Focus
 My career goal is to work as a **Cloud Infrastructure Engineer**.  
-I focus on **infrastructure, networking, security, monitoring, and IaC**, not on application development.  
+I focus on **infrastructure, networking, security, monitoring, and IaC**.  
 
 Each project is designed to demonstrate **practical AWS knowledge** that directly translates into production-ready cloud infrastructure.  
