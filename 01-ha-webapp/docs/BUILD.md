@@ -1,16 +1,16 @@
 # High Availability Web App – Build Guide
 
-## Step 1 – Create VPC
+## ⚙️ Step 1 – Create VPC
 
 ![VPC](./screenshots/01_VPC.png)
 
 ---
 
-## Step 2 – Security Settings
+## ⚙️ Step 2 – Security Settings
 
 ### Security Groups
 
-![Security Groups](./screenshots/02_Security_Group.png)
+![Security Groups](./screenshots/02_Security_Groups.png)
 
 | Security Group       | Inbound Rules             | Source                 | Outbound Rules  | Description                          |
 |----------------------|---------------------------|------------------------|-----------------|--------------------------------------|
@@ -26,7 +26,7 @@
 
 ---
 
-## Step 3 – Create RDS Database
+## ⚙️ Step 3 – Create RDS Database
 
 ![Subnets](./screenshots/03_RDS.png)
 
@@ -62,5 +62,6 @@ ECS Cluster with Fargate Tasks running `nginx:latest` across **2 Availability Zo
 </div>
 
 ---
+
 
 
