@@ -11,6 +11,8 @@ Deploy a highly available and secure web application architecture using:
 
 ## 🏗️ Architecture
 ![Architecture](./docs/architecture.png)
+<img src="./docs/architecture.png" alt="Architecture" width="600"/>
+
 
 ➡️ For the full step-by-step build process with screenshots, see the [Build Guide](./docs/BUILD.md).
 
