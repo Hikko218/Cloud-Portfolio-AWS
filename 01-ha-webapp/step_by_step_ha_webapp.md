@@ -5,23 +5,65 @@ This document provides a practical step-by-step guide to deploy a highly availab
 
 ---
 
-## **1. Preparation**
-- AWS Account (Free Tier enabled)
-- Domain (optional – otherwise use ALB DNS)
-- Region: e.g., `eu-central-1` (Frankfurt)
+## **1. VPC Setup**
+1. Create VPC  
+   - Name: `ha-webapp-vpc`  
+   - IPv4 CIDR: `10.0.0.0/16`  
+
+2. Create Public Subnets (for ALB, NAT Gateways)  
+   - `ha-webapp-public-subnet-1a` → `10.0.1.0/24` (AZ 1a)  
+   - `ha-webapp-public-subnet-1b` → `10.0.2.0/24` (AZ 1b)  
+
+3. Create Private Subnets (for ECS + RDS)  
+   - `ha-webapp-private-subnet-ecs-1a` → `10.0.3.0/24` (AZ 1a)  
+   - `ha-webapp-private-subnet-ecs-1b` → `10.0.4.0/24` (AZ 1b)  
+   - *(Optional)* `ha-webapp-private-subnet-rds` → `10.0.5.0/24` (dedicated DB subnet without Internet access)  
+
+4. Internet Gateway (IGW) 
+   - Name: `ha-webapp-igw`  
+   - Create and attach to `ha-webapp-vpc`  
+
+5. NAT Gateway  
+   - Name: `ha-webapp-nat-1a`  
+   - Place in `ha-webapp-public-subnet-1a`  
+   - Allocate and associate an Elastic IP  
+   - *Production:* one NAT Gateway per AZ for High Availability  
+   - *Demo:* one NAT Gateway is enough to save costs  
+
+6. Route Tables 
+   - **Public Route Table** (`ha-webapp-rtb-public`)  
+     - Routes:  
+       - `10.0.0.0/16 → local` (default)  
+       - `0.0.0.0/0 → Internet Gateway`  
+     - Subnet Associations: Public Subnets (1a + 1b)  
+
+   - **Private Route Table** (`ha-webapp-rtb-private`)  
+     - Routes:  
+       - `10.0.0.0/16 → local`  
+       - `0.0.0.0/0 → NAT Gateway (in 1a)`  
+     - Subnet Associations: Private ECS Subnets (1a + 1b)  
+
+   - *(Optional)* **DB Route Table** (`ha-webapp-rtb-db`)  
+     - Routes: only `10.0.0.0/16 → local`  
+     - Subnet Associations: Private RDS Subnet (no Internet access)
+
+📸 Screenshot: *VPC Topology in AWS Console*
 
 ---
 
-## **2. VPC Setup**
-1. Go to **VPC Console** → “Create VPC”.
-2. Name: `ha-webapp-vpc`.
-3. IPv4 CIDR: `10.0.0.0/16`.
-4. Create **2 Public Subnets** (for ALB, e.g., `10.0.1.0/24` and `10.0.2.0/24`).
-5. Create **2 Private Subnets** (for ECS + RDS, e.g., `10.0.3.0/24` and `10.0.4.0/24`).
-6. Attach Internet Gateway to VPC.
-7. Create a NAT Gateway in one Public Subnet (so ECS in Private Subnets has outbound Internet access).
+## **2. Security Settings**
+- **ALB Security Group**: Allow 80/443 from `0.0.0.0/0`.
+- **ECS Security Group**: Allow inbound only from ALB SG.
+- **RDS Security Group**: Allow inbound only from ECS SG.
 
-📸 Screenshot: *VPC Topology in AWS Console*
+📸 Screenshot: *Security Groups Overview (ALB, ECS, RDS)*
+
+### DB Subnet Group
+- Name: `ha-webapp-db-subnet-group`
+- VPC: `ha-webapp-vpc`
+- Subnets: Private Subnets across 2 AZs (e.g., `10.0.3.0/24` and `10.0.4.0/24`)
+
+📸 Screenshot: *DB Subnet Group Setup*
 
 ---
 
@@ -32,8 +74,8 @@ This document provides a practical step-by-step guide to deploy a highly availab
 4. Instance Identifier: `ha-db`.
 5. Public Access: **No** (Private Subnet only).
 6. VPC: `ha-webapp-vpc`.
-7. Subnet Group: Private Subnets.
-8. Security Group: Only allow access from ECS Tasks.
+7. Subnet Group: `ha-webapp-db-subnet-group` (created in Step 2).
+8. Security Group: `ha-webapp-sg-rds` (only allow access from ECS SG).
 
 📸 Screenshot: *RDS Instance Overview (Private Subnet)*
 
@@ -86,16 +128,7 @@ This document provides a practical step-by-step guide to deploy a highly availab
 
 ---
 
-## **7. Security Settings**
-- **ALB Security Group**: Allow 80/443 from `0.0.0.0/0`.
-- **ECS Security Group**: Allow inbound only from ALB SG.
-- **RDS Security Group**: Allow inbound only from ECS SG.
-
-📸 Screenshot: *Security Groups Overview (ALB, ECS, RDS)*
-
----
-
-## **8. Monitoring**
+## **7. Monitoring**
 1. Go to **CloudWatch → Logs** → ECS Log Group → check NGINX Access Logs.
 2. Create **CloudWatch Alarm**:
    - Metric: `ALB → 5XXError`.
@@ -106,7 +139,7 @@ This document provides a practical step-by-step guide to deploy a highly availab
 
 ---
 
-## **9. Cost Estimation & Cleanup**
+## **8. Cost Estimation & Cleanup**
 - ECS (2 Tasks, Fargate): ~$15–20/month.
 - RDS (Free Tier or ~$15/month).
 - ALB: ~$16/month.
