@@ -10,7 +10,6 @@ Deploy a highly available and secure web application architecture using:
 ---
 
 ## 🏗️ Architecture
-![Architecture](./docs/architecture.png)
 <img src="./docs/architecture.png" alt="Architecture" width="600"/>
 
 
