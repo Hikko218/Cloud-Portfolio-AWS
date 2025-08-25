@@ -24,7 +24,7 @@
 
 ![Subnets](./screenshots/02_Subnets.png)
 
-...
+---
 
 ## Step 3 – Create RDS Database
 
@@ -38,6 +38,29 @@
 - **Security Group:** ha-webapp-sg-rds-c (allows inbound Postgres 5432 only from ECS SG)
 - **High Availability:** Single-AZ (cost optimization for demo). In production, this would be Multi-AZ for high availability.
 
-...
+---
+
+## Step 4 – ECS Fargate (Compute Layer)
+
+ECS Cluster with Fargate Tasks running `nginx:latest` across **2 Availability Zones**.
+
+### ECS Setup
+- **Cluster:** `ha-webapp-cluster`
+- **Task Definition:** `ha-webapp-task` (Fargate, 0.25 vCPU, 512 MB Memory)
+- **Service:** `ha-nginx-service` (2 tasks, spread across AZs)
+- **Logging:** CloudWatch enabled
+- **Security Group:** `ha-webapp-sg-ecs` (inbound from ALB only)
+
+---
+
+### Screenshots
+
+<div style="display: flex; justify-content: space-between;">
+  <img src="./screenshots/04_Cluster.png" alt="Cluster" width="32%">
+  <img src="./screenshots/04_Service.png" alt="Service" width="32%">
+  <img src="./screenshots/04_Task.png" alt="Task" width="32%">
+</div>
+
+---
 
 

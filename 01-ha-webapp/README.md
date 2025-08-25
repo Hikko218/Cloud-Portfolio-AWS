@@ -10,7 +10,9 @@ Deploy a highly available and secure web application architecture using:
 ---
 
 ## 🏗️ Architecture
-![Architecture](./docs/architecture.png)
+<div style="display: flex; justify-content: center;">
+  <img src="./docs/architecture.png" alt="Cluster" width="32%">
+</div>
 
 ➡️ For the full step-by-step build process with screenshots, see the [Build Guide](./docs/BUILD.md).
 

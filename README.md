@@ -27,7 +27,7 @@ A production-ready deployment using:
 ### 2. [Secure VPC Architecture](./02-secure-vpc)
 Design of a secure and scalable AWS VPC:  
 - Public + Private Subnets  
-- **Bastion Host** for controlled access  
+- **Session Manager** for controlled access  
 - **Security Groups vs. NACLs** comparison  
 - VPC Flow Logs to CloudWatch  
 
