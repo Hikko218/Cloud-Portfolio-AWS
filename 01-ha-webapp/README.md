@@ -12,7 +12,7 @@ Deploy a highly available and secure web application architecture using:
 ## 🏗️ Architecture
 
 <p align="center">
-  <img src="./docs/architecture.png" alt="Architecture" width="70%">
+  <img src="./docs/architecture.png" alt="Architecture" width="30%">
 </p>
 
 
