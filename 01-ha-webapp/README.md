@@ -12,8 +12,8 @@ Deploy a highly available and secure web application architecture using:
 
 ```mermaid
 flowchart TD
-    User([👤 User]) --> ALB[Application Load Balancer\n(Internet-facing)]
-    ALB --> ECS[ECS Fargate\n(nginx containers)]
+    User([👤 User]) --> ALB[Application Load Balancer\nInternet-facing]
+    ALB --> ECS[ECS Fargate\nnginx containers]
     ECS --> RDS[(Amazon RDS\nPostgreSQL Database)]
 ```
 ➡️ For the full step-by-step build process with screenshots, see the [Build Guide](./docs/BUILD.md).
