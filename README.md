@@ -11,6 +11,12 @@ Each project demonstrates one of the core pillars of cloud infrastructure: **Com
 
 ---
 
+## 🚧 Status
+This portfolio is **in build / work in progress**.  
+Project 1 is completed ✅, and additional projects are being developed step by step.
+
+---
+
 ## 📂 Projects
 
 ### 1. [High Availability Web App Deployment](./01-ha-webapp)
@@ -23,6 +29,7 @@ A production-ready deployment using:
 
 ---
 
+### (In Progress)
 ### 2. [Secure VPC Architecture](./02-secure-vpc)
 Design of a secure and scalable AWS VPC:  
 - Public + Private Subnets  
@@ -34,6 +41,7 @@ Design of a secure and scalable AWS VPC:
 
 ---
 
+### (In Progress)
 ### 3. [Cloud Storage & Monitoring](./03-s3-monitoring)
 A secure storage and monitoring setup with AWS services:  
 - **S3** with Versioning + Lifecycle → Glacier  
@@ -43,6 +51,9 @@ A secure storage and monitoring setup with AWS services:
 
 > Focus: Storage, Monitoring, Security, Cost Optimization.
 
+---
+
+### (In Progress)
 ### 4. [Infrastructure as Code with Terraform](./04-iac-terraform)
 
 - Terraform scripts to deploy VPC, ECS Fargate, RDS, S3, ALB, CloudWatch.
