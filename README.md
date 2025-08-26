@@ -5,12 +5,6 @@ Each project demonstrates one of the core pillars of cloud infrastructure: **Com
 
 ---
 
-## 📚 Certifications
-- AWS Cloud Practitioner (in progress)
-- AWS Solutions Architect – Associate 🎯 (in progress)
-
----
-
 ## 🚧 Status
 This portfolio is **in build / work in progress**.  
 Project 1 is completed ✅, and additional projects are being developed step by step.
