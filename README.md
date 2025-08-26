@@ -13,6 +13,7 @@ Project 1 is completed ✅, and additional projects are being developed step by 
 
 ## 📂 Projects
 
+###✅
 ### 1. [High Availability Web App Deployment](./01-ha-webapp)
 A production-ready deployment using:
 - **ECS Fargate** (compute)  
