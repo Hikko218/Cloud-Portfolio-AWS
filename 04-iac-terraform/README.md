@@ -12,7 +12,42 @@ Deploy a complete AWS architecture with Terraform:
 ---
 
 ## 🏗️ Architecture
-![Architecture](architecture.png)
+
+```mermaid
+flowchart TB
+    User([User])
+    Route53[Route 53]
+    ALB[Application Load Balancer\n(HTTPS via ACM)]
+    ECS[ECS Fargate]
+    RDS[(Amazon RDS)]
+    NAT[NAT Gateway]
+    S3[(S3 Bucket)]
+    CDN[CloudFront CDN\nLogs -> S3]
+    Session[Session Manager\n(no Bastion Host)]
+    Terraform[Terraform\n(IaC)]
+
+    %% Connections
+    User --> Route53 --> ALB
+    ALB --> ECS
+    ALB --> RDS
+    ECS --> NAT
+    Session --> ECS
+    Session --> RDS
+    CDN --> S3
+    Terraform --> VPC[VPC\n(10.0.0.0/16)]
+
+    %% Subnet grouping
+    subgraph PrivateSubnet [Private Subnet]
+        ECS
+        RDS
+        NAT
+    end
+
+    subgraph Management [Management & IaC]
+        Session
+        Terraform
+    end
+```
 
 ---
 

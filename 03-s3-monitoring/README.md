@@ -9,7 +9,25 @@ Set up a secure and monitored cloud storage solution using S3:
 ---
 
 ## 🏗️ Architecture
-![Architecture](architecture.png)
+```mermaid
+flowchart TB
+    User([User])
+    WAF[WAF\n(Web Application Firewall)]
+    CF[CloudFront CDN]
+    CW1[CloudWatch]
+    Alarm[CloudWatch Alarms]
+    CW2[CloudWatch]
+    CW3[CloudWatch]
+    Guard[GuardDuty + Security Hub]
+    S3[(S3 Bucket)]
+
+    User --> WAF --> CF --> CW1
+    CF --> CW2
+    CF --> CW3
+
+    CW1 --> Alarm
+    CW2 --> Guard --> S3
+```
 
 ---
 

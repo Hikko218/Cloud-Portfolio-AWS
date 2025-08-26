@@ -9,8 +9,27 @@ Build a secure AWS Virtual Private Cloud (VPC) with:
 ---
 
 ## 🏗️ Architecture
-![Architecture](architecture.png)
 
+```mermaid
+flowchart TB
+    VPC[VPC 10.0.0.0/16]
+
+    subgraph Public_Subnet["Public Subnet"]
+        NAT[NAT Gateway]
+    end
+
+    subgraph Private_Subnet["Private Subnet"]
+        ECS[ECS Tasks]
+        RDS[(Amazon RDS)]
+        Session[Session Manager]
+    end
+
+    VPC --> Public_Subnet
+    VPC --> Private_Subnet
+
+    ECS --> RDS
+    Session --> ECS
+```
 ---
 
 ## ⚙️ Services Used
