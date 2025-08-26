@@ -12,12 +12,12 @@ Set up a secure and monitored cloud storage solution using S3:
 ```mermaid
 flowchart TB
     User([User])
-    WAF[WAF\n(Web Application Firewall)]
+    WAF[WAF - Web Application Firewall]
     CF[CloudFront CDN]
-    CW1[CloudWatch]
+    CW1[CloudWatch (Logs)]
     Alarm[CloudWatch Alarms]
-    CW2[CloudWatch]
-    CW3[CloudWatch]
+    CW2[CloudWatch (Metrics)]
+    CW3[CloudWatch (Monitoring)]
     Guard[GuardDuty + Security Hub]
     S3[(S3 Bucket)]
 
