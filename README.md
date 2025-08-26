@@ -13,8 +13,7 @@ Project 1 is completed ✅, and additional projects are being developed step by 
 
 ## 📂 Projects
 
-### ✅
-### 1. [High Availability Web App Deployment](./01-ha-webapp)
+### 1. [High Availability Web App Deployment](./01-ha-webapp) ✅
 A production-ready deployment using:
 - **ECS Fargate** (compute)  
 - **RDS** (database in private subnet)  
@@ -24,8 +23,7 @@ A production-ready deployment using:
 
 ---
 
-### (In Progress)
-### 2. [Secure VPC Architecture](./02-secure-vpc)
+### 2. [Secure VPC Architecture](./02-secure-vpc) (In Progress)
 Design of a secure and scalable AWS VPC:  
 - Public + Private Subnets  
 - **Session Manager** for controlled access  
@@ -36,8 +34,7 @@ Design of a secure and scalable AWS VPC:
 
 ---
 
-### (In Progress)
-### 3. [Cloud Storage & Monitoring](./03-s3-monitoring)
+### 3. [Cloud Storage & Monitoring](./03-s3-monitoring) (In Progress)
 A secure storage and monitoring setup with AWS services:  
 - **S3** with Versioning + Lifecycle → Glacier  
 - **CloudFront** CDN with HTTPS (optional)  
@@ -49,7 +46,7 @@ A secure storage and monitoring setup with AWS services:
 ---
 
 ### (In Progress)
-### 4. [Infrastructure as Code with Terraform](./04-iac-terraform)
+### 4. [Infrastructure as Code with Terraform](./04-iac-terraform) (In Progress)
 
 - Terraform scripts to deploy VPC, ECS Fargate, RDS, S3, ALB, CloudWatch.
 - Demonstrates automation of the complete architecture from Projects 1–3.
