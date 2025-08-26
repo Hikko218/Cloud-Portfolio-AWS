@@ -14,22 +14,22 @@ Deploy a highly available and secure web application architecture using:
 flowchart TD
     User([👤 User]) --> Route53[Route 53]
 
-    Route53 --> ALB[Application Load Balancer\n(HTTPS via ACM)]
+    Route53 --> ALB[Application Load Balancer\nHTTPS via ACM]
     
-    subgraph VPC["VPC: ha-webapp-vpc (10.0.0.0/16)"]
+    subgraph VPC["VPC: ha-webapp-vpc 10.0.0.0/16"]
         
-        subgraph Public["Public Subnets (ALB)"]
+        subgraph Public["Public Subnets - ALB"]
             ALB --- SG_ALB[SG: ha-webapp-sg-alb\nInbound: 80/443 from 0.0.0.0/0]
         end
 
-        subgraph Private["Private Subnets (ECS + RDS)"]
+        subgraph Private["Private Subnets - ECS + RDS"]
             ALB --> ECS1[ECS Fargate Task\nnginx container]
             ALB --> ECS2[ECS Fargate Task\nnginx container]
             
             ECS1 --- SG_ECS[SG: ha-webapp-sg-ecs\nInbound: 80 from ALB]
             ECS2 --- SG_ECS
             
-            ECS1 --> RDS[(RDS PostgreSQL\nSingle-AZ, Private Subnet)]
+            ECS1 --> RDS[(RDS PostgreSQL\ndb.t4g.micro, private subnet)]
             ECS2 --> RDS
 
             RDS --- SG_RDS[SG: ha-webapp-sg-rds-c\nInbound: 5432 from ECS SG]
