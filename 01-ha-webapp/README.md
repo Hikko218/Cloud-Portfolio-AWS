@@ -5,16 +5,36 @@ Deploy a highly available and secure web application architecture using:
 - ECS Fargate (compute layer)
 - RDS (database in private subnet)
 - Application Load Balancer (HTTPS via ACM)
-- Route 53 (custom DNS)
 
 ---
 
 ## 🏗️ Architecture
 
-<p align="center">
-  <img src="./docs/architecture.png" alt="Architecture" width="30%">
-</p>
+```mermaid
+flowchart TD
+    User([👤 User]) --> Route53[Route 53]
 
+    Route53 --> ALB[Application Load Balancer<br/>(HTTPS via ACM)]
+    
+    subgraph VPC["VPC: ha-webapp-vpc (10.0.0.0/16)"]
+        
+        subgraph Public["Public Subnets (ALB)"]
+            ALB --- SG_ALB[SG: ha-webapp-sg-alb<br/>Inbound: 80/443 from 0.0.0.0/0]
+        end
+
+        subgraph Private["Private Subnets (ECS + RDS)"]
+            ALB --> ECS1[ECS Fargate Task<br/>nginx container]
+            ALB --> ECS2[ECS Fargate Task<br/>nginx container]
+            
+            ECS1 --- SG_ECS[SG: ha-webapp-sg-ecs<br/>Inbound: 80 from ALB]
+            ECS2 --- SG_ECS
+            
+            ECS1 --> RDS[(RDS PostgreSQL<br/>Single-AZ, Private Subnet)]
+            ECS2 --> RDS
+
+            RDS --- SG_RDS[SG: ha-webapp-sg-rds-c<br/>Inbound: 5432 from ECS SG]
+        end
+    end
 
 ➡️ For the full step-by-step build process with screenshots, see the [Build Guide](./docs/BUILD.md).
 
@@ -24,7 +44,6 @@ Deploy a highly available and secure web application architecture using:
 - ECS Fargate (2 tasks across 2 AZs)
 - Application Load Balancer (HTTPS termination)
 - Amazon RDS (Postgres, Multi-AZ optional)
-- Route 53 for domain management
 - VPC with public and private subnets
 
 ---

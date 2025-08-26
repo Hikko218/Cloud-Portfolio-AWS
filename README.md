@@ -17,8 +17,7 @@ Each project demonstrates one of the core pillars of cloud infrastructure: **Com
 A production-ready deployment using:
 - **ECS Fargate** (compute)  
 - **RDS** (database in private subnet)  
-- **Application Load Balancer** with HTTPS (ACM)  
-- **Route 53** for custom DNS  
+- **Application Load Balancer** with HTTPS (ACM)   
 
 > Focus: Compute, Databases, High Availability, Security Groups, Monitoring.
 
