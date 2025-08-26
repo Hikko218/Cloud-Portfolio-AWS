@@ -17,14 +17,15 @@ Deploy a complete AWS architecture with Terraform:
 flowchart TB
     User([User])
     Route53[Route 53]
-    ALB[Application Load Balancer\n(HTTPS via ACM)]
+    ALB[Application Load Balancer (HTTPS)]
     ECS[ECS Fargate]
     RDS[(Amazon RDS)]
     NAT[NAT Gateway]
     S3[(S3 Bucket)]
-    CDN[CloudFront CDN\nLogs -> S3]
-    Session[Session Manager\n(no Bastion Host)]
-    Terraform[Terraform\n(IaC)]
+    CDN[CloudFront CDN]
+    Session[Session Manager (no Bastion Host)]
+    Terraform[Terraform (IaC)]
+    VPC[VPC 10.0.0.0/16]
 
     %% Connections
     User --> Route53 --> ALB
@@ -34,10 +35,10 @@ flowchart TB
     Session --> ECS
     Session --> RDS
     CDN --> S3
-    Terraform --> VPC[VPC\n(10.0.0.0/16)]
+    Terraform --> VPC
 
     %% Subnet grouping
-    subgraph PrivateSubnet [Private Subnet]
+    subgraph Private_Subnet [Private Subnet]
         ECS
         RDS
         NAT
