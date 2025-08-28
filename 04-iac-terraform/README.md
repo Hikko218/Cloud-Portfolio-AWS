@@ -49,6 +49,7 @@ flowchart TB
         Terraform
     end
 ```
+➡️ For the full step-by-step build process with screenshots, see the [Build Guide](./docs/BUILD.md).
 
 ---
 

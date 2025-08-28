@@ -30,6 +30,8 @@ flowchart TB
     CW2 --> Guard --> S3
 ```
 
+➡️ For the full step-by-step build process with screenshots, see the [Build Guide](./docs/BUILD.md).
+
 ---
 
 ## ⚙️ Services Used
