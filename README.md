@@ -7,7 +7,7 @@ Each project demonstrates one of the core pillars of cloud infrastructure: **Com
 
 ## 🚧 Status
 This portfolio is **in build / work in progress**.  
-Project 1 is completed ✅, and additional projects are being developed step by step.
+Project 1 and 2 are completed ✅, and additional projects are being developed step by step.
 
 ---
 
@@ -23,7 +23,7 @@ A production-ready deployment using:
 
 ---
 
-### 2. [Secure VPC Architecture](./02-secure-vpc) (In Progress)
+### 2. [Secure VPC Architecture](./02-secure-vpc) ✅
 Design of a secure and scalable AWS VPC:  
 - Public + Private Subnets  
 - **Session Manager** for controlled access  
