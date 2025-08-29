@@ -54,7 +54,7 @@ Build a secure AWS Virtual Private Cloud (VPC) with:
 
 ## ⚙️ Services Used
 - VPC (CIDR: 10.0.0.0/16)
-- 2 Public Subnets (ALB, NAT Gateway)
+- 2 Public Subnets (for NAT Gateway, future scaling with ALB if needed)
 - 2 Private Subnets (DB, ECS)
 - Internet Gateway + NAT Gateway
 - S3 Gateway VPC Endpoint (direct/private access to S3 without NAT)
@@ -72,12 +72,12 @@ Build a secure AWS Virtual Private Cloud (VPC) with:
 
 ## 📊 Monitoring
 - VPC Flow Logs → CloudWatch Logs
-- SNS Alarm for unusual traffic spikes
+- CloudWatch Metric Filter (`RejectedConnections`) from Flow Logs → added to Dashboard
 
 ---
 
 ## 💰 Cost Estimation
-- NAT Gateway: ~$32/month (can be disabled in demo)
+- NAT Gateway: ~$32/month (demo with 1 AZ; in production, ~64/month with 2 NAT Gateways for HA)
 - Flow Logs: a few cents
 - S3 Gateway Endpoint: free (saves NAT data processing costs for S3 traffic)
 

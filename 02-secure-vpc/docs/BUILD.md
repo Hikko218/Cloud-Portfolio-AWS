@@ -37,23 +37,42 @@ This eliminates the need for bastion hosts or key pairs.
 
 ---
 
-## ⚙️ Step 4 – Monitoring (CloudWatch & VPC Flow Logs)
-- **VPC Flow Logs** to CloudWatch Logs (`secure-vpc-logs`)  
-- **CloudWatch Alarm** for unusual inbound traffic attempts  
-- Optional: send notifications via SNS  
+## ⚙️ Step 4 - Network ACLs (NACLs)
 
-![CloudWatch](./screenshots/04_Cloudwatch.png)
+NACLs act as an additional, subnet-level firewall. They are **stateless**, so you must configure both inbound and outbound rules.  
+In this project, the NACL restricts traffic to the database subnet to **only the required port (5432)**.
+
+| Rule # | Direction | Protocol | Port Range | Source/Destination | Action | Description |
+|--------|-----------|----------|-------------|-------------------|--------|-------------|
+| 100    | Inbound   | TCP      | 5432        | 10.0.3.0/24       | ALLOW  | Allow Postgres traffic from EC2 subnet |
+| *      | Inbound   | ALL      | ALL         | 0.0.0.0/0         | DENY   | Deny all other inbound traffic |
+| 100    | Outbound  | TCP      | 1024-65535  | 10.0.3.0/24       | ALLOW  | Allow response traffic to EC2 subnet |
+| *      | Outbound  | ALL      | ALL         | 0.0.0.0/0         | DENY   | Deny all other outbound traffic |
+
+![NACL](./screenshots/04_NACL.png)
+
+
+## ⚙️ Step 5 – Monitoring (CloudWatch & VPC Flow Logs)
+Created CloudWatch metric filter RejectedConnections from Flow Logs → visualized in Dashboard
+
+![CloudWatch](./screenshots/05_Cloudwatch.png)
 
 ---
 
-## ⚙️ Step 5 – Billing and Cost Management
-Even demo setups incur costs. Main drivers here:  
-- NAT Gateway (~$32/month)  
-- RDS (~$15–20/month, depending on instance type)  
-- Flow Logs: a few cents  
-- S3 Gateway Endpoint: **free** (saves NAT data transfer costs to S3)
+## ⚙️ Step 6 – Billing and Cost Management
+Even small demo setups incur AWS costs. At the time of writing, the AWS Billing Dashboard still shows `0` (resources have just been created).  
+Based on AWS on-demand pricing, expected monthly costs are:
 
-![Billing](./screenshots/05_Billing.png)
+| Service        | Estimated Cost | Notes |
+|----------------|----------------|-------|
+| NAT Gateway    | ~$32 / month   | Main cost driver (hourly + data transfer) |
+| RDS (db.t3.micro) | ~$15–20 / month | Free Tier covers storage for first 12 months |
+| EC2 (t3.micro) | ~$8 / month    | Free Tier eligible |
+| CloudWatch Logs & Metrics | ~$1–2 / month | Depends on log volume |
+| S3 Gateway Endpoint | Free | Eliminates NAT data costs for S3 |
+
+💡 Note: For production setups, a NAT Gateway should be deployed in each AZ for high availability.  
+This demo uses only 1 NAT Gateway (~$32/month) to optimize costs, while production would require 2 NAT Gateways (~$64/month).
 
 ---
 
