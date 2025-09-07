@@ -44,7 +44,7 @@ flowchart TB
 
 ## 🔒 Security
 - S3 Public Access Block enabled
-- Bucket Policy restricted (only via CloudFront OAI)
+- Bucket Policy restricted (only via CloudFront OAC)
 - Encryption enabled (SSE-S3)
 
 ---
