@@ -7,7 +7,7 @@ Each project demonstrates one of the core pillars of cloud infrastructure: **Com
 
 ## 🚧 Status
 This portfolio is **in build / work in progress**.  
-Project 1 and 2 are completed ✅, and additional projects are being developed step by step.
+Project 1,2, and 3 are completed ✅, and additional projects are being developed step by step.
 
 ---
 
@@ -34,7 +34,7 @@ Design of a secure and scalable AWS VPC:
 
 ---
 
-### 3. [Cloud Storage & Monitoring](./03-s3-monitoring) (In Progress)
+### 3. [Cloud Storage & Monitoring](./03-s3-monitoring) ✅
 A secure storage and monitoring setup with AWS services:  
 - **S3** with Versioning + Lifecycle → Glacier  
 - **CloudFront** CDN with HTTPS (optional)  
