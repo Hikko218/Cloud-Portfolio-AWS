@@ -63,7 +63,7 @@ To monitor both **S3** and **CloudFront**, we created a custom CloudWatch Dashbo
 - Findings are shown in the GuardDuty console, categorized by severity (Low, Medium, High).  
 
 📸 **Screenshot: GuardDuty Findings Dashboard**  
-![GuardDuty](./screenshots/05_GuardDuty_Findings.png)
+![GuardDuty](./screenshots/04_GuardDuty_Findings.png)
 
 ### 🔹 Security Hub (optional)
 - Security Hub can be enabled to **aggregate findings** from multiple services (GuardDuty, AWS Config, Inspector).  
@@ -93,6 +93,7 @@ We included **Amazon S3, CloudFront, and CloudWatch** based on realistic low-usa
 
 
 ✅ With this setup, the project demonstrates not only **architecture and security**, but also **cost-awareness** — a crucial aspect of real-world cloud engineering.
+
 
 
 
