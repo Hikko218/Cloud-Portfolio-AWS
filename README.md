@@ -55,9 +55,3 @@ A secure storage and monitoring setup with AWS services:
 > Focus: Infrastructure as Code (IaC), automation, reproducibility.
 
 ---
-
-## 🎯 Focus
-My career goal is to work as a **Cloud Infrastructure Engineer**.  
-I focus on **infrastructure, networking, security, monitoring, and IaC**.  
-
-Each project is designed to demonstrate **practical AWS knowledge** that directly translates into production-ready cloud infrastructure.  
